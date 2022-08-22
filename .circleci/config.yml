@@ -198,7 +198,7 @@ jobs:
       - run:
           name: Install tar and zip utilities
           command: |
-            sudo apt install tar gzip
+            yum -y install tar gzip
 
       - persist_to_workspace:
           root: ~/
