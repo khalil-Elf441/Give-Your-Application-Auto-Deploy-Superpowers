@@ -20,6 +20,15 @@ commands:
             aws --region us-west-2 cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.Workflow_ID >>
 #            aws --region us-west-2 s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
 
+  install_awscli:
+    description: Install AWS CLI # https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+    steps:
+      - run:
+          name: Install AWS CLI 
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
 
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
@@ -165,6 +174,7 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+      - install_awscli
       # - run: 
       #     name: set/override default region 
       #     command: | 
