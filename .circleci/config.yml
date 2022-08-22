@@ -18,7 +18,7 @@ commands:
           command: |
             aws --region us-west-2 cloudformation delete-stack --stack-name udapeople-backend-<< parameters.Workflow_ID >>
             aws --region us-west-2 cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.Workflow_ID >>
-            aws --region us-west-2 s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
+#            aws --region us-west-2 s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
 
 
   revert-migrations:
