@@ -169,7 +169,7 @@ jobs:
           name: set/override default region 
           command: | 
               aws configure set default.region "us-west-2"
-              echo $AWS_DEFAULT_REGION
+              echo ${AWS_DEFAULT_REGION}
       - run:
           name: Ensure back-end infrastructure exists
           command: |
