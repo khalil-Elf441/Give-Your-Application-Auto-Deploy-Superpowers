@@ -184,6 +184,10 @@ jobs:
       #         aws configure set default.region "us-west-2"
       #         echo $(aws configure list)
       - run:
+          name: Install tar and zip utilities
+          command: |
+            yum -y install tar gzip
+      - run:
           name: Ensure back-end infrastructure exists
           command: |
             aws --region us-west-2 cloudformation deploy \
