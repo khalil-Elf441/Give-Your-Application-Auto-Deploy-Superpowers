@@ -1,0 +1,25 @@
+---
+- name: "Update apt packages"
+  become: true
+  apt:
+    update_cache: yes
+
+- name: "Remove dependencies that are no longer required"
+  become: true
+  apt:
+    autoremove: yes
+
+- name: "Install npm and nodejs"
+  become: true
+  apt:
+    name: ["npm", "nodejs"]
+    state: latest
+    update_cache: yes
+
+- name: "Install pm2"
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
