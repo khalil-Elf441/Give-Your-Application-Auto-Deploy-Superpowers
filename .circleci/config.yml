@@ -224,13 +224,13 @@ jobs:
     steps:
       # Checkout code from git
       - checkout       
-      # attach workspace
       # Add ssh keys with fingerprint
-      - attach_workspace:
-          at: .
       - add_ssh_keys:
           fingerprints: 
             - "25:53:3c:df:ba:2e:85:fd:08:85:ee:24:93:56:a6:72"
+      # attach workspace
+      - attach_workspace:
+          at: .
 
       - run:
           name: Install dependencies
@@ -240,9 +240,9 @@ jobs:
       - run:
           name: Configure server
           command: |
-            # Your code here
-            exit 1
-      # Here's where you will add some code to rollback on failure      
+            cat ./.circleci/ansible/inventory.txt
+            ansible-playbook -i ./.circleci/ansible/inventory.txt ./.circleci/ansible/configure-server.yml
+      - destroy-environment
 
 #   run-migrations:
 #     docker:
