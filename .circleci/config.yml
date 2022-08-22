@@ -165,6 +165,10 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+      - run: 
+          name: set/override default region 
+          command: | 
+              aws configure set default.region us-west-2
       - run:
           name: Ensure back-end infrastructure exists
           command: |
