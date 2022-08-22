@@ -26,7 +26,7 @@ commands:
       - run:
           name: Install tar and zip utilities
           command: |
-            yum -y install tar gzip unzip zip
+            yum -y install tar gzip unzip zip python-dev
       - run:
           name: Install AWS CLI 
           command: |
