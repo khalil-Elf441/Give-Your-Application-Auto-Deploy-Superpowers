@@ -178,7 +178,6 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      - install_awscli
       # - run: 
       #     name: set/override default region 
       #     command: | 
@@ -232,8 +231,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            # Your code here
-            exit 1
+            apk add --update ansible
+            pip install awscli
       - run:
           name: Configure server
           command: |
