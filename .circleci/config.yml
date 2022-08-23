@@ -243,12 +243,12 @@ jobs:
 #            apk update && apk add --no-cache musl-dev libffi-dev openssl-dev make gcc python py2-pip python-dev
 #            pip install --upgrade pip
 #            pip install cffi
-
       - run:
           name: Configure server
           command: |
             cat ./.circleci/ansible/inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
+            export RECORD_HOST_KEYS=True
             ansible-playbook -i ./.circleci/ansible/inventory.txt ./.circleci/ansible/configure-server.yml
       - destroy-environment
 
