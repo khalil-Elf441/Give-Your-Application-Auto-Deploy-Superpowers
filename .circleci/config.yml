@@ -293,8 +293,8 @@ jobs:
           name: Install dependencies
           command: |
             curl -sL https://rpm.nodesource.com/setup_12.x | bash -
-            yum -y install npm tar gzip jq git python3-pip
-            pip install ansible
+            yum -y install npm tar gzip jq git python3-pip           
+            pip3 install ansible
             pip3 install awscli
 
       - run:
