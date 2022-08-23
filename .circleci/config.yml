@@ -250,7 +250,7 @@ jobs:
             export ANSIBLE_HOST_KEY_CHECKING=False
             export RECORD_HOST_KEYS=True
             ansible-playbook -i ./.circleci/ansible/inventory.txt ./.circleci/ansible/configure-server.yml
-      - destroy-environment
+#      - destroy-environment
 
 #   run-migrations:
 #     docker:
