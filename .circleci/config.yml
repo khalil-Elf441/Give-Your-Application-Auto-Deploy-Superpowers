@@ -43,11 +43,8 @@ commands:
     steps:
       - run:
           name: Revert migrations
-          # Add when this will run
+          when: on_fail
           command: |
-            name: Revert migrations
-            when: on_fail
-            command: |
               SUCCESS=$(curl --insecure  https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/migration_<< parameters.Workflow_ID >>)
               # Logic for reverting the database state
               if (( $SUCCESS == 1 ));
@@ -56,6 +53,7 @@ commands:
                 npm install
                 npm run migration:revert
               fi
+
             
 jobs:
   build-frontend:
