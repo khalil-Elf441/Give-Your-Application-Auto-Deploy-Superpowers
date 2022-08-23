@@ -1,7 +1,7 @@
 ---
 - name: configuration play
   hosts: web
-  user: ec2-user # ubuntu
+  user: ubuntu # ec2-user 
   become: true
   become_method: sudo
   become_user: root
