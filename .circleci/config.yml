@@ -234,11 +234,9 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk update
-            apt install software-properties-common -y
-            add-apt-repository --yes --update ppa:ansible/ansible
-            apt install ansible -y
-            
+            apk update && apk add --no-cache musl-dev libffi-dev openssl-dev make gcc python py2-pip python-dev
+            pip install cffi
+            pip install ansible
             pip install awscli
       - run:
           name: Configure server
