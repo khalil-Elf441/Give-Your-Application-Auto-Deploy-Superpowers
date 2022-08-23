@@ -252,7 +252,7 @@ jobs:
             export ANSIBLE_PARAMIKO_BANNER_TIMEOUT=30
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml -v 
-      - destroy-environment
+#      - destroy-environment
 
   run-migrations:
     docker:
