@@ -1,34 +1,25 @@
 ---
-# @author khalil-Elf441
+- name: "Update apt packages"
+  become: true
+  apt:
+    update_cache: yes
 
-- name: install node curl
-  shell: |
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
-    
-- name: install node and config paths
-  shell: |
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    nvm install 16
-    sudo ln -s "$(which node)" "/usr/local/bin/node"
-    sudo ln -s "$(which npm)" "/usr/local/bin/npm"
-# Verify node and npm install
-- name: check Node and npm installed version
-  shell: |
-    node --version && npm --version
-  register: command_output
-- debug: var=command_output.stdout_lines
-  
+- name: "Remove dependencies that are no longer required"
+  become: true
+  apt:
+    autoremove: yes
 
-- name: "install and configure pm2 path"
-  become: yes
-  shell: | 
-    npm install pm2 -g
-    export PATH=$PATH:$(npm config get prefix)/bin
-- name: check pm2 installation
-  become: yes
-  shell: |
-    export PATH=$PATH:$(npm config get prefix)/bin
-    pm2 status
-  register: command_output_npm
-- debug: var=command_output_npm.stdout_lines
+- name: "Install npm and nodejs"
+  become: true
+  apt:
+    name: ["npm", "nodejs"]
+    state: latest
+    update_cache: yes
+
+- name: "Install pm2"
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
