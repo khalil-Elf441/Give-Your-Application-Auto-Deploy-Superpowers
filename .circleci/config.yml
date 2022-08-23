@@ -293,15 +293,10 @@ jobs:
           name: Install dependencies
           command: |
             curl -sL https://rpm.nodesource.com/setup_12.x | bash -
-            yum -y install nodejs npm tar gzip jq git
-
-      - run:
-          name: Install dependencies
-          command: |
-            curl -sL https://rpm.nodesource.com/setup_12.x | bash -
-            yum -y install nodejs npm tar gzip jq git
+            yum -y install npm tar gzip jq git
             pip install ansible
-      
+            pip install awscli
+
       - run:
           name: Get backend url
           command: |
