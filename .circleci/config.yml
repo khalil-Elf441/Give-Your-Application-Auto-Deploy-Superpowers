@@ -249,7 +249,8 @@ jobs:
             cat ./.circleci/ansible/inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
             export RECORD_HOST_KEYS=True
-            ansible-playbook -i ./.circleci/ansible/inventory.txt ./.circleci/ansible/configure-server.yml -v  # Running investigation
+            cd .circleci/ansible
+            ansible-playbook -i inventory.txt configure-server.yml -v 
 #      - destroy-environment
 
 #   run-migrations:
