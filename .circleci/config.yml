@@ -220,9 +220,8 @@ jobs:
   configure-infrastructure:
     docker:
       # Docker image here that supports Ansible
-#      - image: python:3.7-alpine3.11
+      - image: python:3.7-alpine3.11
 #      - image: python:3.8-alpine3.15
-       - image: ansible/ansible:ubuntu1604
     steps:
       # Checkout code from git
       - checkout       
@@ -232,29 +231,25 @@ jobs:
       # attach workspace
       - attach_workspace:
           at: ~/
-      - run: 
-          name : Install python and aws
+
+      - run:
+          name: Install dependencies
           command: |
-            python -m pip install pip==20.1.1 && python -m pip install ansible && python -m pip install jmespath
-            pip install awscli
-#       - run:
-#           name: Install dependencies
-#           command: |
-#               apk add --update tar gzip ansible
-#               pip install awscli
-# #              pip install --upgrade pip
-# #              pip install ansible
-# #              pip install awscli
-# #            apk update && apk add --no-cache musl-dev libffi-dev openssl-dev make gcc python py2-pip python-dev
-# #            pip install --upgrade pip
-# #            pip install cffi
+              apk add --update tar gzip ansible
+              pip install awscli
+#              pip install --upgrade pip
+#              pip install ansible
+#              pip install awscli
+#            apk update && apk add --no-cache musl-dev libffi-dev openssl-dev make gcc python py2-pip python-dev
+#            pip install --upgrade pip
+#            pip install cffi
       - run:
           name: Configure server
           command: |
             cat ./.circleci/ansible/inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
             export RECORD_HOST_KEYS=True
-            ansible-playbook -i ./.circleci/ansible/inventory.txt ./.circleci/ansible/configure-server.yml -v
+#            ansible-playbook -i ./.circleci/ansible/inventory.txt ./.circleci/ansible/configure-server.yml -v  # Running investigation
 #      - destroy-environment
 
 #   run-migrations:
