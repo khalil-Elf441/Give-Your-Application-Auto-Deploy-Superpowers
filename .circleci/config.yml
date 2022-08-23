@@ -18,7 +18,7 @@ commands:
           command: |
             aws --region us-west-2 cloudformation delete-stack --stack-name udapeople-backend-<< parameters.Workflow_ID >>
             aws --region us-west-2 cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.Workflow_ID >>
-#            aws --region us-west-2 s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
+            aws --region us-west-2 s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
 
   install_awscli:
     description: Install AWS CLI # https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
@@ -220,7 +220,8 @@ jobs:
   configure-infrastructure:
     docker:
       # Docker image here that supports Ansible
-      - image: python:3.7-alpine3.11
+#      - image: python:3.7-alpine3.11
+      - image: 3.8-alpine3.15
     steps:
       # Checkout code from git
       - checkout       
