@@ -293,9 +293,9 @@ jobs:
           name: Install dependencies
           command: |
             curl -sL https://rpm.nodesource.com/setup_12.x | bash -
-            yum -y install npm tar gzip jq git
+            yum -y install npm tar gzip jq git python3-pip
             pip install ansible
-            pip install awscli
+            pip3 install awscli
 
       - run:
           name: Get backend url
