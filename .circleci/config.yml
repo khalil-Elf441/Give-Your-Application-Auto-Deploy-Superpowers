@@ -295,7 +295,7 @@ jobs:
           name: Install dependencies
           command: |
             curl -fsSL https://deb.nodesource.com/setup_13.x | bash -
-            yum -y install npm tar gzip jq git python3-pip           
+            yum -y install tar gzip jq git python3-pip           
 
       - run:
           name: Install node
