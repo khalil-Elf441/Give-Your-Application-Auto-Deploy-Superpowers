@@ -289,6 +289,14 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+
+
+      - run:
+          name: Install dependencies
+          command: |
+            curl -fsSL https://deb.nodesource.com/setup_13.x | bash -
+            yum -y install npm tar gzip jq git python3-pip           
+
       - run:
           name: Install node
           command: |
@@ -298,10 +306,8 @@ jobs:
             nvm install 16
 
       - run:
-          name: Install dependencies
+          name: Install ansible and awscli
           command: |
-            curl -fsSL https://deb.nodesource.com/setup_13.x | bash -
-            yum -y install npm tar gzip jq git python3-pip           
             pip3 install ansible
             pip3 install awscli
 
