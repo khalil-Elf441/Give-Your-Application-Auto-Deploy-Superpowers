@@ -294,23 +294,23 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            yum -y install tar gzip jq git python3-pip  
-#           curl -fsSL https://deb.nodesource.com/setup_13.x | bash -
-                     
+            yum install -y tar gzip curl
+            curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+            yum install -y nodejs              
 
-      - run:
-          name: Install node
-          command: |
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install 16
+      # - run:
+      #     name: Install node
+      #     command: |
+      #       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+      #       export NVM_DIR="$HOME/.nvm"
+      #       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+      #       nvm install 16
 
-      - run:
-          name: Install ansible and awscli
-          command: |
-            pip3 install ansible
-            pip3 install awscli
+      # - run:
+      #     name: Install ansible and awscli
+      #     command: |
+      #       pip3 install ansible
+      #       pip3 install awscli
 
       - run:
           name: Get backend url
