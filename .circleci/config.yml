@@ -292,7 +292,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            curl -fsSL https://deb.nodesource.com/setup_13.x | -E bash -
+            curl -fsSL https://deb.nodesource.com/setup_13.x | bash -
             apt install nodejs npm tar gzip jq git python3-pip           
             pip3 install ansible
             pip3 install awscli
