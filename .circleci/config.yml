@@ -415,7 +415,8 @@ jobs:
               return 1
             fi
       # Here's where you will add some code to rollback on failure  
-
+      - destroy-environment
+      - revert-migrations
 #   cloudfront-update:
 #     docker:
 #       # Docker image here that supports AWS CLI
