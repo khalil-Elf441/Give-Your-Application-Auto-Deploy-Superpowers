@@ -381,18 +381,13 @@ jobs:
       - destroy-environment       
   smoke-test:
     docker:
-      # Lightweight Docker image 
+      - image: amazon/aws-cli
+
     steps:
-      # Checkout code from git
-      - checkout
       - run:
           name: Install dependencies
           command: |
-            apk --no-cache add curl
-            apk add --update npm
-            apk add --no-cache python3 py3-pip \
-              && pip3 install --upgrade pip \
-              && pip install awscli
+            yum -y install jq tar gzip git curl
       # - run:
       #     name: Get backend url
       #     command: |
