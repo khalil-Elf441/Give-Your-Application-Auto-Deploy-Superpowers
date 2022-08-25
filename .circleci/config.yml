@@ -337,7 +337,7 @@ jobs:
   deploy-backend:
     docker:
       # Docker image here that supports Ansible
-      - image: python:3.7-alpine3.11
+      - image: cimg/python:3.7-node
     steps:
       # Checkout code from git
       - checkout       
@@ -367,7 +367,7 @@ jobs:
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
-#            ansible-playbook -i inventory.txt deploy-backend.yml
+            ansible-playbook -i inventory.txt deploy-backend.yml
       # Here's where you will add some code to rollback on failure  
 
 #   smoke-test:
