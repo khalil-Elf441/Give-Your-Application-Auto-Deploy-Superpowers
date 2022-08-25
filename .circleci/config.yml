@@ -349,10 +349,18 @@ jobs:
           at: ~/
 
       - run:
-          name: Install dependencies
+          name: Install aws dependencies
           command: |
-              apk add --update tar gzip ansible
-              pip install awscli
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+      - run:
+          name: Install Ansible
+          command: |
+            sudo apt update
+            sudo apt install software-properties-common -y
+            sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt install ansible -y
 #              pip install --upgrade
       - run:
           name: Deploy backend
