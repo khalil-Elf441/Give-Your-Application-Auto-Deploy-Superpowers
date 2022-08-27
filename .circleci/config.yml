@@ -367,6 +367,7 @@ jobs:
           name: Deploy backend
           command: |
             # your code here
+            echo TYPEORM_HOST=$TYPEORM_HOST >> "backend/.env"
             cd backend
             npm i
             npm run build
