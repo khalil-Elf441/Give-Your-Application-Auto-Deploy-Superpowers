@@ -224,16 +224,7 @@ jobs:
     docker:
       # Docker image here that supports Ansible
       - image: python:3.7-alpine3.11
-#      - image: python:3.8-alpine3.15
-    environment:
-      TYPEORM_CONNECTION: $TYPEORM_CONNECTION
-      TYPEORM_HOST: $TYPEORM_HOST
-      TYPEORM_USERNAME: $TYPEORM_USERNAME
-      TYPEORM_PASSWORD: $TYPEORM_PASSWORD
-      TYPEORM_DATABASE: $TYPEORM_DATABASE
-      TYPEORM_MIGRATIONS: $TYPEORM_MIGRATIONS
-      TYPEORM_ENTITIES: $TYPEORM_ENTITIES
-      
+#      - image: python:3.8-alpine3.15      
     steps:
       # Checkout code from git
       - checkout       
@@ -261,7 +252,17 @@ jobs:
             cat ./.circleci/ansible/inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
             export RECORD_HOST_KEYS=False
-            export ANSIBLE_PARAMIKO_BANNER_TIMEOUT=30        
+            export ANSIBLE_PARAMIKO_BANNER_TIMEOUT=30   
+            echo ENVIROMENT=development > "backend/.env"      
+            echo TYPEORM_CONNECTION=postgres >> "backend/.env"
+            echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> "backend/.env"
+            echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts >> "backend/.env"          
+            echo TYPEORM_PORT=$TYPEORM_PORT >> "backend/.env"      
+            echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> "backend/.env"            
+            echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> "backend/.env"      
+            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> "backend/.env"     
+            echo "CONTENT OF backend/.env"      
+            cat backend/.env         
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml -v 
       - destroy-environment
