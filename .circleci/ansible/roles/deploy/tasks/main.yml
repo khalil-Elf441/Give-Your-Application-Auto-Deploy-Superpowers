@@ -1,33 +1,24 @@
 ---
-- name: 'update and upgrade packages.'
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-    cache_valid_time: 86400
+- name: "Creates backend app directory"
+  file:
+    path: ~/backend
+    state: directory
 
-- name: remove unneeded deps
-  become: yes
-  apt:
-    autoremove: yes
-
-- name: install pm2
-  become: yes
-  npm:
-    name: pm2
-    global: yes
-
-- name: extract artifact
-  become: yes
+- name: "Unarchive backend files"
   unarchive:
     src: files/artifact.tar.gz
-    dest: .
-    
-- name: start app
-  become: yes
+    dest: ~/backend
+
+- name: "Installing Node Dependencies"
   shell: |
-    pm2 stop all
-    pm2 start npm -- start
+    cd ~/backend
+    npm i
+    
+- name: "Executing Node app with PM2"
+  shell: |
+    cd ~/backend/dist
+    pm2 stop default
+    pm2 start main.js
     
 - name: check pm2 status
   become: yes
