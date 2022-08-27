@@ -403,17 +403,20 @@ jobs:
 
   smoke-test:
     docker:
-      - image: amazon/aws-cli
-
+      - image: cimg/node:13.8.0
     steps:
-      - run:
-          name: Install dependencies
-          command: |
-            yum -y install jq tar gzip git curl
       # - run:
-      #     name: Get backend url
+      #     name: Install dependencies
       #     command: |
-      
+      #       yum -y install jq tar gzip git curl
+      # - install_awscli
+      - run:
+          name: Install AWS CLI 
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            ./aws/install -i /usr/local/aws-cli -b /usr/local/bin
+            
       - run:
           name: Frontend smoke test.
           command: |
