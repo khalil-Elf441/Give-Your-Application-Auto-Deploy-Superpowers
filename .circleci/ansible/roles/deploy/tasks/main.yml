@@ -28,3 +28,10 @@
   shell: |
     pm2 stop all
     pm2 start npm -- start
+    
+- name: check pm2 status
+  become: yes
+  shell: |
+    pm2 status
+  register: command_output_npm
+- debug: var=command_output_npm.stdout_lines
