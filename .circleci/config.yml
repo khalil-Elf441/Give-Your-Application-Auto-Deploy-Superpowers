@@ -443,8 +443,8 @@ jobs:
               exit 1
             fi
 
-      - revert-migrations
-      - destroy-environment    
+#      - revert-migrations
+#      - destroy-environment    
 
 
 #   cloudfront-update:
