@@ -28,7 +28,7 @@
   shell: |
     npm i
     pm2 stop all
-    pm2 start npm -- start
+    pm2 start npm --name backend -- start
     
 - name: check pm2 status
   become: yes
