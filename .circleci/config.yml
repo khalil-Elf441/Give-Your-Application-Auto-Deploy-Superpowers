@@ -380,7 +380,8 @@ jobs:
             ansible-playbook -i inventory.txt deploy-backend.yml
       # Here's where you will add some code to rollback on failure  
       - revert-migrations
-      - destroy-environment       
+      - destroy-environment     
+
   smoke-test:
     docker:
       - image: amazon/aws-cli
@@ -414,7 +415,7 @@ jobs:
             if curl -s ${URL} | grep "Welcome"
             then
                 # Change this to 0 after the job fails
-              return 1
+              return 0
             else
               return 1
             fi
