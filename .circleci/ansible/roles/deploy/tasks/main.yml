@@ -22,7 +22,6 @@
   unarchive:
     src: files/artifact.tar.gz
     dest: .
-    remote_src: yes
     
 - name: start app
   become: yes
