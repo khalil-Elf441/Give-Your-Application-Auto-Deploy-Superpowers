@@ -253,19 +253,6 @@ jobs:
             export ANSIBLE_HOST_KEY_CHECKING=False
             export RECORD_HOST_KEYS=False
             export ANSIBLE_PARAMIKO_BANNER_TIMEOUT=30        
-            # set env vars
-            echo ENVIRONMENT: production > "backend/.env"
-            echo NODE_ENV: production >> "backend/.env"
-            echo TYPEORM_CONNECTION: postgres >> "backend/.env"
-            echo TYPEORM_MIGRATIONS_DIR: ~/src/migrations >> "backend/.env"
-            echo TYPEORM_MIGRATIONS: ~/src/migrations/*.ts >> "backend/.env"
-            echo TYPEORM_ENTITIES: ~/src/modules/domain/**/*.entity.ts >> "backend/.env"
-            echo TYPEORM_HOST: udapeople-db-prod.cjqwbt35ugyf.us-west-2.rds.amazonaws.com >> "backend/.env"
-            echo TYPEORM_PORT: "5432" >> "backend/.env"
-            echo TYPEORM_USERNAME: postgres >> "backend/.env"
-            echo TYPEORM_PASSWORD: udapeople123 >> "backend/.env"
-            echo TYPEORM_DATABASE: postgres >> "backend/.env"
-            cat backend/.env
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml -v 
       - destroy-environment
