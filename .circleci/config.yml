@@ -265,6 +265,7 @@ jobs:
             echo TYPEORM_USERNAME: postgres >> "backend/.env"
             echo TYPEORM_PASSWORD: udapeople123 >> "backend/.env"
             echo TYPEORM_DATABASE: postgres >> "backend/.env"
+            cat backend/.env
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml -v 
       - destroy-environment
@@ -416,7 +417,7 @@ jobs:
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             ./aws/install -i /usr/local/aws-cli -b /usr/local/bin
-            
+
       - run:
           name: Frontend smoke test.
           command: |
