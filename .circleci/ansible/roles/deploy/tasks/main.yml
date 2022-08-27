@@ -27,7 +27,7 @@
 - name: start app
   become: yes
   shell: |
-    pm2 stop default
+    pm2 stop all
     pm2 start npm -- start
     
 - name: check pm2 status
