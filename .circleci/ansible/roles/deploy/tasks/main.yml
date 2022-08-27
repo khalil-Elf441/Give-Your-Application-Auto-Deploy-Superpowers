@@ -28,11 +28,16 @@
   shell: |
     export ENVIRONMENT=production
     export NODE_ENV=production
-    export TYPEORM_HOST="{{ lookup('env', 'TYPEORM_HOST') }}"
-    export TYPEORM_ENTITIES="{{ lookup('env', 'TYPEORM_ENTITIES') }}"
-    export TYPEORM_USERNAME="{{ lookup('env', 'TYPEORM_USERNAME') }}"
-    export TYPEORM_PASSWORD="{{ lookup('env', 'TYPEORM_PASSWORD') }}"
-    export TYPEORM_DATABASE="{{ lookup('env', 'TYPEORM_DATABASE') }}"
+    export TYPEORM_CONNECTION=postgres
+    export TYPEORM_MIGRATIONS_DIR=~/src/migrations
+    export TYPEORM_MIGRATIONS=~/src/migrations/*.ts
+    export TYPEORM_ENTITIES=~/src/modules/domain/**/*.entity.ts
+    export TYPEORM_HOST=udapeople-db-prod.cjqwbt35ugyf.us-west-2.rds.amazonaws.com
+    export TYPEORM_PORT="5432"
+    export TYPEORM_USERNAME=postgres
+    export TYPEORM_PASSWORD=udapeople123
+    export TYPEORM_DATABASE=postgres
+    source ~/.profile
     npm install
     pm2 stop all
     pm2 start npm --name "udapeople-backend" -- run start
