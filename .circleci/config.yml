@@ -435,71 +435,70 @@ jobs:
             export BACKEND_PUBLIC_IP=$(aws --region us-west-2 ec2 describe-instances --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --query 'Reservations[*].Instances[*].PublicDnsName' --output text)
             export API_URL="http://${BACKEND_PUBLIC_IP}:3030"
             echo "${API_URL}"
-#            if curl -s ${API_URL}/api/status | grep "ok"
-#            then
-#              exit 0
-#            else
-#              exit 0 # 1
-#            fi
-
-#            curl -s ${API_URL}/api/status -v # unnecessary check
-
-#      - revert-migrations
-#      - destroy-environment    
-
-
-  cloudfront-update:
-    docker:
-      - image: amazon/aws-cli
-    steps:
-      - checkout
-      - run:
-          name: Save Old Workflow ID to kvdb.io
-          command: |
-            export OldWorkflowID=$(aws cloudformation \
-                      list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
-                      --no-paginate --output text)
-            echo "Old Wokflow ID: $OldWorkflowID"
-            curl https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/old_workflow_id -d "${OldWorkflowID}"
-      - run:
-          name: Update cloudfront distribution
-          command: |
-            aws cloudformation deploy \
-              --stack-name udapeople-cloudfront \
-              --template-file .circleci/files/cloudfront.yml \
-              --region us-west-2 \
-              --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID}" \
-              --tags project=udapeople
-      - revert-migrations
-      - destroy-environment
-
-  cleanup:
-    docker:
-      - image: cimg/node:13.8.0
-    steps:
-      - checkout
-      - install_awscli
-      - run:
-          name: Get old stack workflow id and Cleanup
-          command: |
-            
-            export OldWorkflowID=$(curl --insecure https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/old_workflow_id)
-            
-            export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
-                    --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
-
-            echo OldWorkflowID: "${OldWorkflowID}"
-            echo CIRCLE_WORKFLOW_ID "$CIRCLE_WORKFLOW_ID"
-            echo Stack names: "${STACKS[@]}"
-            if [[ ${STACKS[@]} =~ "${OldWorkflowID}" ]]
+            curl -s ${API_URL}/api/status -v 
+            if curl -s ${API_URL}/api/status | grep "ok"
             then
-              aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
-              aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
-              aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
-              echo "=======================Delete Confirmed========================"
+              exit 0
             else
-              echo "=======================Didn't delete========================"            
-            fi
+              exit 1
+            fi          
+
+    #  - revert-migrations
+    #  - destroy-environment    
+
+
+  # cloudfront-update:
+  #   docker:
+  #     - image: amazon/aws-cli
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Save Old Workflow ID to kvdb.io
+  #         command: |
+  #           export OldWorkflowID=$(aws cloudformation \
+  #                     list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+  #                     --no-paginate --output text)
+  #           echo "Old Wokflow ID: $OldWorkflowID"
+  #           curl https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/old_workflow_id -d "${OldWorkflowID}"
+  #     - run:
+  #         name: Update cloudfront distribution
+  #         command: |
+  #           aws cloudformation deploy \
+  #             --stack-name udapeople-cloudfront \
+  #             --template-file .circleci/files/cloudfront.yml \
+  #             --region us-west-2 \
+  #             --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID}" \
+  #             --tags project=udapeople
+  #     - revert-migrations
+  #     - destroy-environment
+
+  # cleanup:
+  #   docker:
+  #     - image: cimg/node:13.8.0
+  #   steps:
+  #     - checkout
+  #     - install_awscli
+  #     - run:
+  #         name: Get old stack workflow id and Cleanup
+  #         command: |
+            
+  #           export OldWorkflowID=$(curl --insecure https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/old_workflow_id)
+            
+  #           export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
+  #                   --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
+
+  #           echo OldWorkflowID: "${OldWorkflowID}"
+  #           echo CIRCLE_WORKFLOW_ID "$CIRCLE_WORKFLOW_ID"
+  #           echo Stack names: "${STACKS[@]}"
+  #           if [[ ${STACKS[@]} =~ "${OldWorkflowID}" ]]
+  #           then
+  #             aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+  #             aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
+  #             aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
+  #             echo "=======================Delete Confirmed========================"
+  #           else
+  #             echo "=======================Didn't delete========================"            
+  #           fi
             
 
 workflows:
@@ -530,7 +529,7 @@ workflows:
           requires: [run-migrations]
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
-      - cloudfront-update:
-          requires: [smoke-test]
-      - cleanup:
-          requires: [cloudfront-update]
+      # - cloudfront-update:
+      #     requires: [smoke-test]
+      # - cleanup:
+      #     requires: [cloudfront-update]
