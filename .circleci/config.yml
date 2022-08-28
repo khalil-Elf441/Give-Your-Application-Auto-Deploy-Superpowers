@@ -438,7 +438,7 @@ jobs:
             curl -s ${API_URL}/api/status -v 
             if curl -s ${API_URL}/api/status | grep "ok"
             then
-              exit 0
+              exit 1
             else
               exit 1
             fi          
