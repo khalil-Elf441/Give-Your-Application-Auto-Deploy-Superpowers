@@ -462,7 +462,7 @@ jobs:
           name: Update cloudfront distribution
           command: |
             aws cloudformation deploy \
-              --stack-name udapeople-cloudfront \
+              --stack-name udapeople-cloudfront-${CIRCLE_WORKFLOW_ID} \
               --template-file .circleci/files/cloudfront.yml \
               --region us-west-2 \
               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID}" \
