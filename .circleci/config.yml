@@ -46,7 +46,7 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-              SUCCESS=$(curl --insecure  https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/migration_<< parameters.Workflow_ID >>)
+              SUCCESS=$(curl --insecure  https://kvdb.io/${KVDB_BUCKET_ID}/migration_<< parameters.Workflow_ID >>)
               # Logic for reverting the database state
               if (( $SUCCESS == 1 ));
               then
@@ -288,7 +288,7 @@ jobs:
                 # If you are using memstash.io, generate the token "7933fe63-4687-4fa1-8426-aa25aa1730ec" on the website
                 # curl -H "Content-Type: text/plain" -H "token: 7933fe63-4687-4fa1-8426-aa25aa1730ec" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7}
                 # If you are using kvdb.io, generate the bucket ID "9GE4jRtKznmVKRfvdBABBe" in your local terminal first
-                curl https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+                curl https://kvdb.io/${KVDB_BUCKET_ID}/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
       - destroy-environment
       - revert-migrations   
@@ -458,7 +458,7 @@ jobs:
           command: |
             export OldWorkflowID=$(aws --region us-west-2 cloudformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value" --no-paginate --output text)
             echo "Old Wokflow ID: $OldWorkflowID"
-            curl https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/old_workflow_id -d "${OldWorkflowID}" -v
+            curl https://kvdb.io/${KVDB_BUCKET_ID}/old_workflow_id -d "${OldWorkflowID}" -v
       - run:
           name: Update cloudfront distribution
           command: |
@@ -482,7 +482,7 @@ jobs:
   #         name: Get old stack workflow id and Cleanup
   #         command: |
             
-  #           export OldWorkflowID=$(curl --insecure https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/old_workflow_id)
+  #           export OldWorkflowID=$(curl --insecure https://kvdb.io/${KVDB_BUCKET_ID}/old_workflow_id)
             
   #           export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
   #                   --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
