@@ -28,7 +28,7 @@
   shell: |
     npm install
     pm2 stop all
-    pm2 start npm --name "udapeople-backend" -- run start
+    pm2 start npm --name "udapeople-backend" -- run "start:dev"
   environment:
     ENVIRONMENT: production
     NODE_ENV: production
