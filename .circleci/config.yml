@@ -436,12 +436,12 @@ jobs:
             export API_URL="http://${BACKEND_PUBLIC_IP}:3030"
             echo "${API_URL}"
             curl -s ${API_URL}/api/status -v
-            if curl -s ${API_URL}/api/status | grep "ok"
-            then
-              exit 0
-            else
-              exit 0 # 1
-            fi
+#            if curl -s ${API_URL}/api/status | grep "ok"
+#            then
+#              exit 0
+#            else
+#              exit 0 # 1
+#            fi
 
 #      - revert-migrations
 #      - destroy-environment    
