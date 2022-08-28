@@ -17,9 +17,10 @@ commands:
           when: on_fail
           command: |
             echo "Destroying environment: << parameters.Workflow_ID >> "
+            aws --region us-west-2 s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
+            aws --region us-west-2 s3 rm s3://udapeople-<<parameters.Workflow_ID>> --force
             aws --region us-west-2 cloudformation delete-stack --stack-name udapeople-backend-<< parameters.Workflow_ID >>
             aws --region us-west-2 cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.Workflow_ID >>
-            aws --region us-west-2 s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
 
   install_awscli:
     description: Install AWS CLI # https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
