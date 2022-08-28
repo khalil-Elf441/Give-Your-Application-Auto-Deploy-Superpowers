@@ -443,8 +443,8 @@ jobs:
               exit 1
             fi          
 
-    #  - revert-migrations
-    #  - destroy-environment    
+      - revert-migrations
+      - destroy-environment    
 
 
   cloudfront-update:
@@ -462,11 +462,10 @@ jobs:
           name: Update cloudfront distribution
           command: |
             aws cloudformation deploy \
-              --stack-name udapeople-cloudfront-${CIRCLE_WORKFLOW_ID} \
-              --template-file .circleci/files/cloudfront.yml \
-              --region us-west-2 \
-              --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID}" \
-              --tags project=udapeople
+                    --template-file .circleci/files/cloudfront.yml \
+                    --stack-name InitialStack \
+                    --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
+                    --tags project=udapeople
       - revert-migrations
       - destroy-environment
 
