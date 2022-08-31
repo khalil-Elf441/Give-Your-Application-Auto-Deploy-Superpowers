@@ -93,16 +93,14 @@ Surface critical server errors for diagnosis using centralized logging.
 
 # URLS
 
-
 URL 01 - https://github.com/khalil-Elf441/Give-Your-Application-Auto-Deploy-Superpowers
 
-URL 02 - [http://udapeople-9176afd.s3-website-us-west-2.amazonaws.com/#/employees](http://udapeople-9176afd.s3-website-us-west-2.amazonaws.com/#/employees)
+URL 02 - http://udapeople-5927908.s3-website-us-west-2.amazonaws.com/#/employees
 
 URL 03 - d1v86frunby356.cloudfront.net
 
-URL 04 - [http://ec2-52-38-152-250.us-west-2.compute.amazonaws.com:3030/api/status](http://ec2-35-91-65-219.us-west-2.compute.amazonaws.com:3030/api/status)
+URL 04 - http://ec2-52-38-152-250.us-west-2.compute.amazonaws.com:3030/api/status
 
-URL 05 - [http://ec2-35-90-8-15.us-west-2.compute.amazonaws.com:9090/targets](http://ec2-35-87-183-236.us-west-2.compute.amazonaws.com:9090/targets)
-
+URL 05 - http://ec2-50-112-80-230.us-west-2.compute.amazonaws.com:9090/targets
 
 
